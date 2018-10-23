@@ -50,8 +50,7 @@ public class TipousuarioDao {
 
 	}		
 	
-	//Retorna cuantos usuarios hay, NO FUNCIONA
-	@SuppressWarnings("null")
+	//Retorna cuantos usuarios hay, FUNCIONA
 	public TipousuarioBean getCount() throws Exception {
 		String strSQL = "SELECT COUNT(id) FROM " + ob;
 		TipousuarioBean oTipousuarioBean = null;
@@ -59,9 +58,10 @@ public class TipousuarioDao {
 		PreparedStatement oPreparedStatement = null;
 		try {
 			oPreparedStatement = oConnection.prepareStatement(strSQL);
-			oResultSet = oPreparedStatement.executeQuery(strSQL);
+			oResultSet = oPreparedStatement.executeQuery();
 			//Next busca el siguiente objeto en la base de datos
 			if(oResultSet.next()) {
+				oTipousuarioBean = new TipousuarioBean();
 				oTipousuarioBean.setId(oResultSet.getInt(1));
 				oTipousuarioBean.setDesc("Total registrados.");
 			}else {
@@ -113,7 +113,8 @@ public class TipousuarioDao {
 		
 	@SuppressWarnings("null")
 	public TipousuarioBean create(String desc) throws Exception {
-		String strSQL = "INSERT INTO " + ob + " `(desc)` VALUES (?)";
+		String strSQL = "INSERT INTO " + ob + " `(`desc`)` VALUES (?)";
+		//http://localhost:8080/trolleyes/json?op=create&ob=tipousuario&desc=Holii
 		TipousuarioBean oTipousuarioBean = null;
 		ResultSet oResultSet = null;
 		PreparedStatement oPreparedStatement = null;

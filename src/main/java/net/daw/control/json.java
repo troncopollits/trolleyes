@@ -60,14 +60,12 @@ public class json extends HttpServlet {
 							break;
 						case "delete":
 							oService = new TipousuarioService(request);
-							//http://localhost:8080/trolleyes/json?op=delete&ob=tipousuario&id=2
 							break;
-						case "getCount":
+						case "count":
 							oService = new TipousuarioService(request);
 							break;
 						case "update":
 							oService = new TipousuarioService(request);
-							//http://localhost:8080/trolleyes/json?op=update&ob=tipousuario&desc=HijosRuina&id=1
 							break;
 						case "create":
 							oService = new TipousuarioService(request);

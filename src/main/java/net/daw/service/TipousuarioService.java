@@ -40,22 +40,27 @@ public class TipousuarioService {
 				case "get":
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.get(id);
+					//http://localhost:8080/trolleyes/json?op=get&ob=tipousuario&id=1
 					break;
 				case "delete":
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.delete(id);
+					//http://localhost:8080/trolleyes/json?op=delete&ob=tipousuario&id=2
 					break;
-				case "getCount":
+				case "count":
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.getCount();
+					//http://localhost:8080/trolleyes/json?op=count&ob=tipousuario&id=1
 					break;
 				case "update":
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.update(desc, id);
+					//http://localhost:8080/trolleyes/json?op=update&ob=tipousuario&desc=Holabebes&id=1
 					break;
 				case "create":
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.create(desc);
+					//http://localhost:8080/trolleyes/json?op=create&ob=tipousuario&desc=NuevoUsuario
 					break;
 			}
 
