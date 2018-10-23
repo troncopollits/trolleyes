@@ -156,11 +156,11 @@ public class TipousuarioDao {
 
 		try {
 			// Comprobamos si existe o no el registro que queremos eliminar
-			if (this.get(id) == null) {
+			if (this.get(id) == null) { 
 				oTipousuarioBean.setId(id);
 				oTipousuarioBean.setDesc("No se encuentran coicidencias.");
-			} else {
-				oPreparedStatement = oConnection.prepareStatement(strSQL);
+			} else { 
+				oPreparedStatement = oConnection.prepareStatement(strSQL); 
 				oPreparedStatement.setInt(1, id);
 				oPreparedStatement.execute();
 

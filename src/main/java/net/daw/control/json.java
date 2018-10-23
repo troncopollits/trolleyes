@@ -40,7 +40,7 @@ public class json extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String strJson = "";
-		String strOb = request.getParameter("ob");
+		String strOb = request.getParameter("ob"); 
 		String strOp = request.getParameter("op");
 		TipousuarioService oService = null;
 		try {

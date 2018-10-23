@@ -52,7 +52,7 @@ public class TipousuarioService {
 					oTipousuarioBean = oTipousuarioDao.getCount();
 					//http://localhost:8080/trolleyes/json?op=count&ob=tipousuario&id=1
 					break;
-				case "update":
+				case "update": 
 					oTipousuarioDao = new TipousuarioDao(oConnection);
 					oTipousuarioBean = oTipousuarioDao.update(desc, id);
 					//http://localhost:8080/trolleyes/json?op=update&ob=tipousuario&desc=Holabebes&id=1
