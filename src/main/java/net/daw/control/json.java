@@ -53,28 +53,37 @@ public class json extends HttpServlet {
 			if (!strOp.equalsIgnoreCase("") && !strOb.equalsIgnoreCase("")) {
 				if (strOb.equalsIgnoreCase("tipousuario")) {
 					if (strOp!=null) {	
-						//switch para determinar que opcion elegir
-						switch(strOp) {
-						case "get":
-							oService = new TipousuarioService(request);
-							break;
-						case "delete":
-							oService = new TipousuarioService(request);
-							break;
-						case "count":
-							oService = new TipousuarioService(request);
-							break;
-						case "update":
-							oService = new TipousuarioService(request);
-							break;
-						case "create":
-							oService = new TipousuarioService(request);
-							break;
-						}	
+						
 						try {
-							ReplyBean oReplyBean = oService.get();
-							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
-									+ "}";
+							//switch para determinar que opcion elegir
+							switch(strOp) {
+							case "get":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.get();
+								break;
+							case "getpage":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.getpage();
+								break;
+							case "remove":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.remove();
+								break;
+							case "count":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.count();
+								break;
+							case "update":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.update();
+								break;
+							case "create":
+								oService = new TipousuarioService(request);
+								ReplyBean oReplyBean = oService.create();
+								break;
+							}	
+							
+							strJson = json.srtJson(oReplyBean.getStatus(), oReplyBean.getJson());
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -82,6 +91,9 @@ public class json extends HttpServlet {
 						}
 					}
 				}
+				
+		
+				/*APARTADO QUE AHORA NO VIENE AL CASO*/
 				if (strOb.equalsIgnoreCase("usuario")) {
 					if (strOp.equalsIgnoreCase("connect")) {
 						

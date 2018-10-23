@@ -22,59 +22,66 @@ public class TipousuarioService {
 		super();
 		this.oRequest = oRequest;
 	}
-	//Hola
+	//Get
 	public ReplyBean get() throws Exception {
 		ReplyBean oReplyBean;
 		ConnectionInterface oConnectionPool = null;
 		Connection oConnection;
-		TipousuarioDao oTipousuarioDao;
-		TipousuarioBean oTipousuarioBean = null;
 		try {
 			Integer id = Integer.parseInt(oRequest.getParameter("id"));
-			String desc = oRequest.getParameter("desc");
-			// Buscamos que tipo de conexion necesitamos.
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-			// Ya tenemos la conexion con Hikari
 			oConnection = oConnectionPool.newConnection();
-			switch (oRequest.getParameter("op")) {
-				case "get":
-					oTipousuarioDao = new TipousuarioDao(oConnection);
-					oTipousuarioBean = oTipousuarioDao.get(id);
-					//http://localhost:8080/trolleyes/json?op=get&ob=tipousuario&id=1
-					break;
-				case "delete":
-					oTipousuarioDao = new TipousuarioDao(oConnection);
-					oTipousuarioBean = oTipousuarioDao.delete(id);
-					//http://localhost:8080/trolleyes/json?op=delete&ob=tipousuario&id=2
-					break;
-				case "count":
-					oTipousuarioDao = new TipousuarioDao(oConnection);
-					oTipousuarioBean = oTipousuarioDao.getCount();
-					//http://localhost:8080/trolleyes/json?op=count&ob=tipousuario&id=1
-					break;
-				case "update": 
-					oTipousuarioDao = new TipousuarioDao(oConnection);
-					oTipousuarioBean = oTipousuarioDao.update(desc, id);
-					//http://localhost:8080/trolleyes/json?op=update&ob=tipousuario&desc=Holabebes&id=1
-					break;
-				case "create":
-					oTipousuarioDao = new TipousuarioDao(oConnection);
-					oTipousuarioBean = oTipousuarioDao.create(desc);
-					//http://localhost:8080/trolleyes/json?op=create&ob=tipousuario&desc=NuevoUsuario
-					break;
-			}
-
+			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
+			TipousuarioBean oTipousuarioBean = oTipousuarioDao.get(id);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(oTipousuarioBean));
 		} catch (Exception ex) {
 			oReplyBean = new ReplyBean(500,
-					"Bad Connection: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+					"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
 		} finally {
 			oConnectionPool.disposeConnection();
 		}
 
 		return oReplyBean;
-
 	}
-
+	//GetPage
+	public ReplyBean getpage() throws Exception{
+		ReplyBean oReplyBean;
+		ConnectionInterface oConnectionPool = null;
+		Connection oConnection;
+		try {
+			Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+			Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+			oConnection = oConnectionPool.newConnection();
+			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
+			ArrayList<TipousuarioBean> alTipousuarioBean = oTipousuarioDao.getpage(iRpp, iPage);
+			Gson oGson = new Gson();
+			oReplyBean = new ReplyBean(200, oGson.toJson(alTipousuarioBean));
+		}catch(Exception ex) oReplyBean = new ReplyBean(500,
+				"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+		} finally {
+			oConnectionPool.disposeConnection();
+		}
+		return oReplyBean;
+	}
+	//remove
+	public ReplyBean remove() throws Exception{
+		ReplyBean oReplyBean;
+		ConnectionInterface oConnectionPool = null;
+		Connection oConnection;
+		try {
+			Integer id = Integer.parseInt(oRequest.getParameter("id"));
+			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+			oConnection = oConnectionPool.newConnection();
+			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
+			int iRes = oTipousuarioDao.remove(id);
+			oReplyBean = new ReplyBean(200,Integer.toString(iRes));
+			
+			
+			
+			
+			
+			
+		}
 }
