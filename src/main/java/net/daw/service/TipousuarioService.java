@@ -22,7 +22,7 @@ public class TipousuarioService {
 		super();
 		this.oRequest = oRequest;
 	}
-
+	//Hola
 	public ReplyBean get() throws Exception {
 		ReplyBean oReplyBean;
 		ConnectionInterface oConnectionPool = null;
