@@ -26,5 +26,4 @@ public class ReplyBean {
 	public void setJson(String json) {
 		this.json = json;
 	}
-
 }

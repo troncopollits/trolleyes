@@ -2,6 +2,7 @@
 package net.daw.control;
 
 import java.io.IOException;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +42,7 @@ public class json extends HttpServlet {
 		String strJson = "";
 		String strOb = request.getParameter("ob");
 		String strOp = request.getParameter("op");
-
+		TipousuarioService oService = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception ex) {
@@ -51,9 +52,27 @@ public class json extends HttpServlet {
 		if (strOp != null && strOb != null) {
 			if (!strOp.equalsIgnoreCase("") && !strOb.equalsIgnoreCase("")) {
 				if (strOb.equalsIgnoreCase("tipousuario")) {
-					if (strOp.equalsIgnoreCase("get")) {
-
-						TipousuarioService oService = new TipousuarioService(request);
+					if (strOp!=null) {	
+						//switch para determinar que opcion elegir
+						switch(strOp) {
+						case "get":
+							oService = new TipousuarioService(request);
+							break;
+						case "delete":
+							oService = new TipousuarioService(request);
+							//http://localhost:8080/trolleyes/json?op=delete&ob=tipousuario&id=2
+							break;
+						case "getCount":
+							oService = new TipousuarioService(request);
+							break;
+						case "update":
+							oService = new TipousuarioService(request);
+							//http://localhost:8080/trolleyes/json?op=update&ob=tipousuario&desc=HijosRuina&id=1
+							break;
+						case "create":
+							oService = new TipousuarioService(request);
+							break;
+						}	
 						try {
 							ReplyBean oReplyBean = oService.get();
 							strJson = "{\"status\":" + oReplyBean.getStatus() + ",\"message\":" + oReplyBean.getJson()
